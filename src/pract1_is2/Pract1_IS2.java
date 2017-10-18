@@ -43,7 +43,8 @@ public class Pract1_IS2 {
             System.out.println("4.Listar en pantalla los miembros con motos en posesion");
             System.out.println("5.Listar todas las motos");
             System.out.println("6.Mostrar las cesiones realizadas");
-            System.out.println("7.Salir del programa/n");
+            System.out.println("7.Anyadir gastos a moto");
+            System.out.println("8.Salir del programa/n");
             
             System.out.println("Elija la opcion deseada: ");
             opcion = sc.nextInt();
@@ -71,6 +72,9 @@ public class Pract1_IS2 {
                     ce.MostrarCesion();
                     break;
                 case 7:
+                    mo.AumentarGastos();
+                    break;
+                case 8:
                     try{
                         File archivo = new File("C:\\IS2\\archivo.txt");
                         FileWriter w = new FileWriter(archivo);
@@ -97,7 +101,7 @@ public class Pract1_IS2 {
                     break;
             }
             
-        }while (opcion != 7);
+        }while (opcion != 8);
     }
     
 }

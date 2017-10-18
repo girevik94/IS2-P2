@@ -20,15 +20,17 @@ public class Moto {
     private int cilindradamoto;
     private float preciomoto;
     private int miembro;
+    private float gastos;
     ArrayList <Moto> ListaMotos = new ArrayList<Moto>();
     
-    public Moto (int moto, String modelomoto, int cilindradamoto, float preciomoto, int miembro){
+    public Moto (int moto, String modelomoto, int cilindradamoto, float preciomoto, int miembro, float gastos){
     
         this.idmoto = moto;
         this.modelomoto = modelomoto;
         this.cilindradamoto = cilindradamoto;
         this.preciomoto = preciomoto;
         this.miembro = miembro;
+        this.gastos = gastos;
     }
 
     Moto() {
@@ -74,6 +76,14 @@ public class Moto {
         this.preciomoto = preciomoto;
     }
     
+    public float getGastos(){
+        return gastos;
+    }
+    
+    public void setGastos(float gastos){
+        this.gastos = gastos;
+    }
+    
     public Moto addMoto(ArrayList miembros, float importemaximo){
         boolean posible;
         
@@ -87,10 +97,12 @@ public class Moto {
         preciomoto = sc.nextFloat();
         System.out.println("Introduce el ID del propietario de la moto: ");
         miembro = sc.nextInt();
+        System.out.println("Precio de los gastos: ");
+        gastos = sc.nextFloat();
         
         Cesion ce = new Cesion();
         posible = ce.anyadirMoto(miembro, preciomoto, miembros, ListaMotos, importemaximo);
-        Moto m = new Moto( idmoto, modelomoto, cilindradamoto, preciomoto, miembro);
+        Moto m = new Moto( idmoto, modelomoto, cilindradamoto, preciomoto, miembro, gastos);
         
         if (posible == true)
             this.ListaMotos.add(m);
@@ -107,10 +119,29 @@ public class Moto {
     
     public String toString(Moto m){
         return "ID Moto: " + m.getIdMoto() + "\tMoto: " + m.getModeloMoto() + "\tCilindrada: " + m.getCilindradaMoto() + "\tPrecio:"
-                + m.getPrecioMoto() + "\tPropietario Actual: " + m.getMiembro() + "\n";
+                + m.getPrecioMoto() + "\tPropietario Actual: " + m.getMiembro() + "\tGastos Adicionales: " + m.getGastos() + "\n";
     }
     
     public ArrayList getArrayMotos(){
         return ListaMotos;
+    }
+    
+    public void AumentarGastos(){
+        int moto;
+        float aungastos, gastos_aux;
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.println("ID de la moto: ");
+        moto = sc.nextInt();
+        System.out.println("Cual es el aumento de los gastos: ");
+        aungastos = sc.nextFloat();
+        
+        Moto mo = new Moto();
+        mo = ((Moto) ListaMotos.get(moto-1));
+        
+        gastos_aux = mo.getGastos();
+        gastos_aux += aungastos;
+        
+        mo.setGastos(gastos_aux);
     }
 }
