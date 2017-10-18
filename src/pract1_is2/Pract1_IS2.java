@@ -32,7 +32,10 @@ public class Pract1_IS2 {
         
         int opcion = 0;
         Scanner sc = new Scanner(System.in);
+        float importemaximo;
         
+        System.out.println("Introduce el importe maximo de las compras: ");
+        importemaximo = sc.nextFloat();
         do{
             System.out.println("1.Registrar un nuevo miembro.");
             System.out.println("2.Registrar una nueva motocicleta");
@@ -51,12 +54,12 @@ public class Pract1_IS2 {
                     break;
                 case 2:
                     ListaMiembros = mi.getArrayMiembros();
-                    mo.addMoto(ListaMiembros);
+                    mo.addMoto(ListaMiembros, importemaximo);
                     break;
                 case 3:
                     ListaMiembros = mi.getArrayMiembros();
                     ListaMotos = mo.getArrayMotos();
-                    ce.addCesion(ListaMiembros, ListaMotos);
+                    ce.addCesion(ListaMiembros, ListaMotos,importemaximo);
                     break;
                 case 4:
                     mi.MostrarMiembros();

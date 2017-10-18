@@ -74,7 +74,9 @@ public class Moto {
         this.preciomoto = preciomoto;
     }
     
-    public Moto addMoto(ArrayList miembros){
+    public Moto addMoto(ArrayList miembros, float importemaximo){
+        boolean posible;
+        
         idmoto++;
         Scanner sc = new Scanner(System.in);
         System.out.println("Modelo de la moto: ");
@@ -86,11 +88,12 @@ public class Moto {
         System.out.println("Introduce el ID del propietario de la moto: ");
         miembro = sc.nextInt();
         
-        Moto m = new Moto( idmoto, modelomoto, cilindradamoto, preciomoto, miembro);
-        this.ListaMotos.add(m);
-        
         Cesion ce = new Cesion();
-        ce.anyadirMoto(miembro, preciomoto, miembros, ListaMotos);
+        posible = ce.anyadirMoto(miembro, preciomoto, miembros, ListaMotos, importemaximo);
+        Moto m = new Moto( idmoto, modelomoto, cilindradamoto, preciomoto, miembro);
+        
+        if (posible == true)
+            this.ListaMotos.add(m);
         
         return m;
     }

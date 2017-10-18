@@ -74,7 +74,7 @@ public class Cesion {
         this.fecha = fecha;
     }
     
-    public Cesion addCesion(ArrayList miembros, ArrayList motos){
+    public Cesion addCesion(ArrayList miembros, ArrayList motos, float importemaximo){
         idcesion++;
         Scanner sc = new Scanner(System.in);
         System.out.println("Inserta el ID de la moto a ceder: ");
@@ -94,10 +94,10 @@ public class Cesion {
         float importemoto = moto.getPrecioMoto();
         float importetotalcliente2 = cli2.getImporteMotosTotal();        
                 
-        if(importemoto + importetotalcliente2 <= 6000){
+        if(importemoto + importetotalcliente2 <= importemaximo){
             
             this.ListaCesion.add(ce);
-            anyadirMoto(cliente2, importemoto, miembros, motos);
+            anyadirMoto(cliente2, importemoto, miembros, motos, importemaximo);
             quitarMoto(cliente1, importemoto, miembros, motos);
             cambiarPropietario(motos, idmoto, cliente2);
         }
@@ -124,15 +124,26 @@ public class Cesion {
         return ListaCesion;
     }
     
-    public void anyadirMoto(int idcliente, float preciomoto, ArrayList miembros, ArrayList motos){
+    public boolean anyadirMoto(int idcliente, float preciomoto, ArrayList miembros, ArrayList motos, float importemaximo){
+        boolean posible;
+        
         Miembro mi = new Miembro();
-        mi = ((Miembro) miembros.get(idcliente - 1));
-        num_motos_aux = mi.getNumeroMotos();
-        num_motos_aux++;
-        mi.setNumeromotos(num_motos_aux);
+        mi = ((Miembro) miembros.get(idcliente - 1));        
         imp_motos_aux = mi.getImporteMotosTotal();
         imp_motos_aux += preciomoto;
-        mi.setImporteMotosTotal(imp_motos_aux);
+        if (imp_motos_aux <= importemaximo){
+            num_motos_aux = mi.getNumeroMotos();
+            num_motos_aux++;
+            mi.setNumeromotos(num_motos_aux);
+            posible = true;
+            mi.setImporteMotosTotal(imp_motos_aux);
+        }
+        else{
+            System.out.println("No se ha podido anyadir la moto porque sobrepasa el importe maximo por cliente.");
+            posible = false;
+        }
+            
+        return posible;
     }
     
     public void quitarMoto(int idcliente, float preciomoto, ArrayList miembros, ArrayList motos){
