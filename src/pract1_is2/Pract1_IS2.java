@@ -26,11 +26,7 @@ public class Pract1_IS2 {
         Miembro mi = new Miembro();
         Moto mo = new Moto();
         Cesion ce = new Cesion();
-        ArrayList <Moto> ListaMotos = new ArrayList<Moto>();
-        ArrayList <Miembro> ListaMiembros = new ArrayList<Miembro>();
-        ArrayList <Cesion> ListaCesion = new ArrayList<Cesion> ();
-        
-        int opcion = 0;
+        int opcion;
         Scanner sc = new Scanner(System.in);
         float importemaximo;
         
@@ -44,7 +40,9 @@ public class Pract1_IS2 {
             System.out.println("5.Listar todas las motos");
             System.out.println("6.Mostrar las cesiones realizadas");
             System.out.println("7.Anyadir gastos a moto");
-            System.out.println("8.Salir del programa/n");
+            System.out.println("8.Eliminar miembro");
+            System.out.println("9.Miembros con más cesiones");
+            System.out.println("10.Salir del programa\n");
             
             System.out.println("Elija la opcion deseada: ");
             opcion = sc.nextInt();
@@ -54,13 +52,13 @@ public class Pract1_IS2 {
                     mi.addMiembro();
                     break;
                 case 2:
-                    ListaMiembros = mi.getArrayMiembros();
-                    mo.addMoto(ListaMiembros, importemaximo);
+                    mi.MostrarMiembros();
+                    mo.addMoto(mi.getArrayMiembros(), importemaximo);
                     break;
                 case 3:
-                    ListaMiembros = mi.getArrayMiembros();
-                    ListaMotos = mo.getArrayMotos();
-                    ce.addCesion(ListaMiembros, ListaMotos,importemaximo);
+                    mi.MostrarMiembros();
+                    mo.MostrarMotos();
+                    ce.addCesion(mi.getArrayMiembros(), mo.getArrayMotos(), importemaximo);
                     break;
                 case 4:
                     mi.MostrarMiembros();
@@ -75,21 +73,25 @@ public class Pract1_IS2 {
                     mo.AumentarGastos();
                     break;
                 case 8:
+                    mi.MostrarMiembros();
+                    mo.MostrarMotos();
+                    mi.eliminarMiembro(mi.getArrayMiembros(), importemaximo);
+                    break;
+                case 9:
+                    //ce
+                    break;
+                case 10:
+                    String texto = mi.toString();
+                    texto += mo.toString();
+                    texto += ce.toString();
                     try{
                         File archivo = new File("C:\\IS2\\archivo.txt");
                         FileWriter w = new FileWriter(archivo);
-                        PrintWriter p = new PrintWriter(w);
-                        for(int i=0; i < ListaMiembros.size(); i++){
-                            p.println(ListaMiembros.get(i));
-                        }
-                        for(int i=0; i < ListaMotos.size(); i++){
-                            p.println(ListaMotos.get(i));
-                        }
-                        for(int i=0; i < ListaCesion.size(); i++){
-                            p.println(ListaCesion.get(i));
-                        }
+                        BufferedWriter b = new BufferedWriter(w);
+                        PrintWriter p = new PrintWriter(b);
                         if(archivo.createNewFile())
-                            System.out.println("Se ha creado el archivo");
+                            p.write(texto);
+                        System.out.println("Se ha creado el archivo");
                     }catch(IOException er){
                         System.err.println("No se puede crear el archivo"+er);
                     }
@@ -101,7 +103,7 @@ public class Pract1_IS2 {
                     break;
             }
             
-        }while (opcion != 8);
+        }while (opcion != 10);
     }
     
 }

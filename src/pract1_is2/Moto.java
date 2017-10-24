@@ -21,7 +21,7 @@ public class Moto {
     private float preciomoto;
     private int miembro;
     private float gastos;
-    ArrayList <Moto> ListaMotos = new ArrayList<Moto>();
+    ArrayList <Moto> ListaMotos = new ArrayList<Moto> ();
     
     public Moto (int moto, String modelomoto, int cilindradamoto, float preciomoto, int miembro, float gastos){
     
@@ -84,7 +84,11 @@ public class Moto {
         this.gastos = gastos;
     }
     
-    public Moto addMoto(ArrayList miembros, float importemaximo){
+    public ArrayList getArrayMotos(){
+        return ListaMotos;
+    }
+    
+    public void addMoto(ArrayList miembros, float importemaximo){
         boolean posible;
         
         idmoto++;
@@ -107,7 +111,7 @@ public class Moto {
         if (posible == true)
             this.ListaMotos.add(m);
         
-        return m;
+        //return m;
     }
     
     public void MostrarMotos(){
@@ -122,10 +126,6 @@ public class Moto {
                 + m.getPrecioMoto() + "\tPropietario Actual: " + m.getMiembro() + "\tGastos Adicionales: " + m.getGastos() + "\n";
     }
     
-    public ArrayList getArrayMotos(){
-        return ListaMotos;
-    }
-    
     public void AumentarGastos(){
         int moto;
         float aungastos, gastos_aux;
@@ -137,11 +137,37 @@ public class Moto {
         aungastos = sc.nextFloat();
         
         Moto mo = new Moto();
-        mo = ((Moto) ListaMotos.get(moto-1));
+        mo = (ListaMotos.get(moto-1));
         
         gastos_aux = mo.getGastos();
         gastos_aux += aungastos;
         
         mo.setGastos(gastos_aux);
+    }
+    
+    public void cambiarMiembroMoto(int idmiembro, ArrayList miembros, float importemaximo){
+        Moto mo = new Moto();
+        Cesion ce = new Cesion();
+        Scanner sc = new Scanner(System.in);
+        int aux, id = 0;
+        float preciomoto;
+        boolean posible = false;
+        for(int i = 0; i < ListaMotos.size(); i++){
+            mo = ListaMotos.get(i);
+            aux = mo.getMiembro();
+            if(aux == idmiembro){
+                do{
+                    System.out.println("Dime a quien cedo esta moto: ");
+                    id = sc.nextInt();
+                    preciomoto = mo.getPrecioMoto();
+                    posible = ce.anyadirMoto(id, preciomoto, miembros, ListaMotos, importemaximo);
+                    
+                    if (posible == true){
+                        mo.setMiembro(id);
+                    }
+                }while (posible == false);
+                
+            }
+        }
     }
 }

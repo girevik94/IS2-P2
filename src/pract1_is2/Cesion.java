@@ -74,7 +74,7 @@ public class Cesion {
         this.fecha = fecha;
     }
     
-    public Cesion addCesion(ArrayList miembros, ArrayList motos, float importemaximo){
+    public void addCesion(ArrayList miembros, ArrayList motos, float importemaximo){
         idcesion++;
         Scanner sc = new Scanner(System.in);
         System.out.println("Inserta el ID de la moto a ceder: ");
@@ -104,8 +104,6 @@ public class Cesion {
         
         else
             System.out.println("No se puede realizar la cesión.");
-        
-        return ce;
     }
     
     public void MostrarCesion(){
