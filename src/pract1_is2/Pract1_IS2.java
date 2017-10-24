@@ -70,12 +70,13 @@ public class Pract1_IS2 {
                     ce.MostrarCesion();
                     break;
                 case 7:
+                    mo.MostrarMotos();
                     mo.AumentarGastos();
                     break;
                 case 8:
                     mi.MostrarMiembros();
                     mo.MostrarMotos();
-                    mi.eliminarMiembro(mi.getArrayMiembros(), importemaximo);
+                    mi.eliminarMiembro(mo.getArrayMotos(), importemaximo);
                     break;
                 case 9:
                     ce.miembrosConMasCesiones(mi.getArrayMiembros(), mo.getArrayMotos());

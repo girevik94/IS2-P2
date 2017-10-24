@@ -85,7 +85,7 @@ public class Miembro {
         System.out.println("Inserta la ID del miembro que quieres eliminar: ");
         Scanner sc = new Scanner(System.in);
         int miembro = sc.nextInt();
-        int aux, nmotos = 0, id = 0;
+        int aux, aux1, id = 0, nmotos = 0;
         Miembro mi = new Miembro();
         Moto mo = new Moto();
         Cesion ce = new Cesion();
@@ -101,22 +101,25 @@ public class Miembro {
             }
         }
         
-        for(int j = 0; j<Motos.size();j++){
+        if (nmotos > 0){
+            for(int j = 0; j<Motos.size();j++){
             mo = ((Moto)(Motos.get(j)));
-            aux = mo.getMiembro();
-            if(aux == idmiembro){
-                do{
-                    System.out.println("Dime a quien cedo esta moto: ");
-                    id = sc.nextInt();
-                    preciomoto = mo.getPrecioMoto();
-                    posible = ce.anyadirMoto(id, preciomoto, ListaMiembros, Motos, importemaximo);
-                    
-                    if (posible == true){
-                        ce.cambiarPropietario(Motos, mo.getIdMoto(), id);
-                    }
-                }while (posible == false);
+            aux1 = mo.getMiembro();
+                if(aux1 == miembro){
+                    do{
+                        System.out.println("Dime a quien cedo esta moto: ");
+                        id = sc.nextInt();
+                        preciomoto = mo.getPrecioMoto();
+                        posible = ce.anyadirMoto(id, preciomoto, ListaMiembros, Motos, importemaximo);
+
+                        if (posible == true){
+                            ce.cambiarPropietario(Motos, mo.getIdMoto(), id);
+                        }
+                    }while (posible == false);
+                }
             }
         }
+        
     }
     
     public void MostrarMiembros(){
@@ -130,4 +133,6 @@ public class Miembro {
         return "ID Miembro: " + mi.getIdmiembro() + "\tNombre Miembro: " + mi.getNombreMiembro() + "\tNumero Motos: " + mi.getNumeroMotos() +
                "\tImporte Total Motos: " + mi.getImporteMotosTotal() + "\n";
     }
+    
+    
 }
