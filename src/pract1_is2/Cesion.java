@@ -160,4 +160,23 @@ public class Cesion {
         mo = ((Moto) motos.get(moto-1));
         mo.setMiembro(idcliente);
     }
+    
+    public void miembrosConMasCesiones(ArrayList Miembros, ArrayList Motos){
+        Miembro mi = new Miembro();
+        Moto mo = new Moto();
+        Cesion ce = new Cesion();
+        int miembro, moto;
+        
+        for(int i = 0; i < ListaCesion.size(); i++){
+            ce = ListaCesion.get(i);
+            miembro = ce.getIdCliente2(cliente2);
+            moto = ce.getIdMoto(idmoto);
+            
+            mi = ((Miembro)(Miembros.get(miembro)));
+            mo = ((Moto) (Motos.get(moto)));
+            
+            mi.toString(mi);
+            mo.toString(mo);
+        }
+    }
 }

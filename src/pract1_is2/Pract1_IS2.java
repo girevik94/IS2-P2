@@ -78,7 +78,7 @@ public class Pract1_IS2 {
                     mi.eliminarMiembro(mi.getArrayMiembros(), importemaximo);
                     break;
                 case 9:
-                    //ce
+                    ce.miembrosConMasCesiones(mi.getArrayMiembros(), mo.getArrayMotos());
                     break;
                 case 10:
                     String texto = mi.toString();
